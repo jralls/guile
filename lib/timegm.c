@@ -38,3 +38,11 @@ timegm (struct tm *tmp)
   tmp->tm_isdst = 0;
   return __mktime_internal (tmp, __gmtime_r, &gmtime_offset);
 }
+
+/* MINGW64 provides a mktime that works in some timezones but never a
+ * timegm. When there's a working mktime we need to include mktime.c to
+ * get the __mktime_internal implementation.
+ */
+#ifndef REPLACE_MKTIME
+#include "mktime.c"
+#endif

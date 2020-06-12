@@ -244,9 +244,11 @@ main ()
 
   if test $gl_cv_func_working_mktime = no; then
     REPLACE_MKTIME=1
+    AC_DEFINE([REPLACE_MKTIME], [1], [System mktime is defective or missing.])
   else
     REPLACE_MKTIME=0
   fi
+
 ])
 
 AC_DEFUN([gl_FUNC_MKTIME_INTERNAL], [

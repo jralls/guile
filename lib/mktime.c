@@ -461,7 +461,12 @@ __mktime_internal (struct tm *tp,
 
 static mktime_offset_t localtime_offset;
 
+/* MINGW64 note: When not replacing mktime we need to include this file
+ * into timegm.c but since we're using the system mktime can't define it
+ * here.
+ */
 /* Convert *TP to a time_t value.  */
+#ifdef REPLACE_MKTIME
 time_t
 mktime (struct tm *tp)
 {
@@ -476,6 +481,7 @@ mktime (struct tm *tp)
 
   return __mktime_internal (tp, __localtime_r, &localtime_offset);
 }
+#endif
 
 #ifdef weak_alias
 weak_alias (mktime, timelocal)
