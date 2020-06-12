@@ -82,10 +82,17 @@ scm_i_sched_yield (void)
 
 /* Signals
  */
+#ifdef __MINGW32__
+typedef unsigned int sigset_t;
+#endif
 static inline int
 scm_i_pthread_sigmask (int how, const sigset_t *set, sigset_t *oldset)
 {
+#ifdef __MINGW32__
+  return 0;
+#else
   return sigprocmask (how, set, oldset);
+#endif
 }
 
 /* Mutexes
