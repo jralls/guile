@@ -40,6 +40,9 @@
 
 
 #if !@HAVE_POLL_H@
+# ifdef __MINGW32__
+#  include <winsock2.h>
+# endif
 
 /* fake a poll(2) environment */
 # define POLLIN      0x0001      /* any readable data available   */
@@ -55,12 +58,14 @@
 
 # if !GNULIB_defined_poll_types
 
+#  ifndef __MINGW32__
 struct pollfd
 {
   int fd;                       /* which file descriptor to poll */
   short events;                 /* events we are interested in   */
   short revents;                /* events found on return        */
 };
+#  endif
 
 typedef unsigned long nfds_t;
 

@@ -40,7 +40,11 @@
 #include <sys/un.h>
 #endif
 #include <netinet/in.h>
-#include <netinet/tcp.h>
+#ifdef __MINGW32__
+# include <winsock.h>
+#else
+# include <netinet/tcp.h>
+#endif
 #include <netdb.h>
 #include <arpa/inet.h>
 
