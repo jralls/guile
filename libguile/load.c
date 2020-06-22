@@ -570,7 +570,7 @@ compiled_is_fresh (SCM full_filename, SCM compiled_filename,
       scm_puts ("\n", scm_current_warning_port ());
     }
 
-  return compiled_is_newer;
+  return 1;
 }
 
 static SCM
